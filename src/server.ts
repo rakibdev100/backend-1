@@ -1,18 +1,14 @@
 import Express, { type Application } from "express"
-
-const app: Application = Express()
-const port = 3000
-
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+import { envVars } from "./app/config/env.js"
+import app from "./app.js"
 
 
+let server;
 
 
 const bootstrap = async () => {
-    app.listen(port, () => {
-        console.log(`Example app listening on port ${port}`)
+  server =  app.listen(envVars.PORT, () => {
+        console.log(`Example app listening on port ${envVars.PORT}`)
     })
 
 }
