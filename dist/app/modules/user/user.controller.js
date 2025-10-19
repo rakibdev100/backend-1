@@ -1,18 +1,21 @@
 import httpStatus from "http-status-codes";
-import { user } from "./user.model.js";
+import { User } from "./user.model.js";
 import { catchAsync } from "../../../utils/catchAsync.js";
-const getUsers = (req, res, next) => {
+import { UserServices } from "./user.services.js";
+const getUsers = catchAsync(async (req, res, next) => {
+    const users = await User.find({});
     res.status(httpStatus.OK).json({
         status: "success",
-        message: "all user retrieved successfully"
+        message: "all user retrieved successfully",
+        data: users
     });
-};
+});
 const createUser = catchAsync(async (req, res, next) => {
-    const createdUser = await user.insertOne(req.body);
+    const user = await UserServices.createUser(req, res);
     res.status(httpStatus.CREATED).json({
         status: "success",
         message: "user created successfully",
-        user: createdUser
+        user: user
     });
 });
 export const UserController = {

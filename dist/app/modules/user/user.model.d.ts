@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-export declare const user: mongoose.Model<{
+export declare const User: mongoose.Model<{
     name: string;
     email: string;
     password: string;

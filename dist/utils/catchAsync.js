@@ -1,4 +1,4 @@
-export const catchAsync = (fn) => {
+export const catchAsync = async (fn) => {
     return async (req, res, next) => {
         try {
             await fn(req, res, next);
