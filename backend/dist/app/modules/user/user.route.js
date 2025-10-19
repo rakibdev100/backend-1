@@ -1,5 +1,7 @@
 import { Router } from "express";
 import { UserController } from "./user.controller.js";
+import { createUserValidation } from "./user.validation.js";
+import { json } from "zod";
 const router = Router();
 router.get('/all-users', async (req, res, next) => {
     try {
@@ -12,12 +14,24 @@ router.get('/all-users', async (req, res, next) => {
 });
 router.post('/create-user', async (req, res, next) => {
     try {
-        const handler = await UserController.createUser;
-        return handler(req, res, next);
+        await createUserValidation.parseAsync(req.body);
     }
-    catch (err) {
+    catch (error) {
+        const newArr = JSON.parse(error).map((arr) => {
+        });
+        console.log();
         next(err);
     }
 });
 export const UserRoute = router;
+const err = [
+    {
+        path: "name",
+        message: "Name must be at least 3 characters long",
+    },
+    {
+        path: "password",
+        message: "Name must be at least 3 characters long",
+    }
+];
 //# sourceMappingURL=user.route.js.map
